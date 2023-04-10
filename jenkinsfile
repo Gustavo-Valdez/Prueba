@@ -1,35 +1,29 @@
 pipeline {
-  agent any
-  
-  stages {
-    stage('Checkout') {
-      steps {
-        checkout scm
-      }
-    }
-    
-    stage('Build') {
-      steps {
-        sh 'npm install'
-        sh 'npm run build'
-      }
-    }
-    
-    stage('Deploy') {
-      steps {
-        sh 'sudo rsync -rav --delete dist/ /var/www/html/'
-      }
-    }
-  }
-  
-  post {
-    success {
-      sh 'echo "Deployment successful!"'
-    }
-    
-    failure {
-      sh 'echo "Deployment failed!"'
-    }
-  }
-}
+    agent any
 
+    environment {
+        LOCAL_DIR = '/var/lib/jenkins/workspace/Prueba' // Cambiar por la ruta de acceso a tu proyecto de Jenkins
+        REMOTE_DIR = '/var/www/html' // Cambiar por la ruta de acceso a tu servidor Apache2
+    }
+
+    stages {
+        stage('Clone repository') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Gustavo-Valdez/Prueba.git' // Cambiar por la URL de tu repositorio Git
+            }
+        }
+
+        stage('Build application') {
+            steps {
+                sh 'npm install' // Ejecuta el comando para instalar dependencias
+                sh 'npm run build' // Ejecuta el comando para construir la aplicación
+            }
+        }
+
+        stage('Deploy to Apache2') {
+            steps {
+                sh "cp -r ${env./var/lib/jenkins/workspace/Prueba}/build/* ${env./var/www/html}" // Copia los archivos construidos a la ruta de acceso correcta en el servidor Apache2
+            }
+        }
+    }
+}
