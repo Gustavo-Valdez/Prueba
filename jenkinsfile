@@ -4,7 +4,7 @@ pipeline {
     tools {nodejs "nodejs"}
 
     environment {
-        LOCAL_DIR = '/var/lib/jenkins/workspace/Prueba' // Cambiar por la ruta de acceso a tu proyecto de Jenkins
+        LOCAL_DIR = '/var/lib/jenkins/workspace/Prueba' // Ruta de acceso a tu proyecto de Jenkins
         REMOTE_DIR = '/var/www/html' // Cambiar por la ruta de acceso a tu servidor Apache2
     }
 
