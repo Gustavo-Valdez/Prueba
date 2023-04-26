@@ -5,7 +5,7 @@ pipeline {
 
     environment {
         LOCAL_DIR = '/var/lib/jenkins/workspace/Prueba' // Ruta de acceso a tu proyecto de Jenkins
-        REMOTE_DIR = '/var/www/html' // Cambiar por la ruta de acceso a tu servidor Apache2
+        REMOTE_DIR = '/var/www/html' // Ruta de acceso a tu servidor Apache2
     }
 
     stages {
